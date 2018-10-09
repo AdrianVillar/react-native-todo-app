@@ -1,22 +1,17 @@
 import React, { Component } from 'react';
 
 import TaskList from './taskList';
-// import { createStackNavigator } from 'react-navigation';
+import store from './todoStore';
 
 export default class List extends Component {
 
   constructor(props, context) {
     super(props, context);
-    this.state = {
-      todos: [
-        {
-          task: 'Learn React Native'
-        },
-        {
-          task: 'Learn Redux'
-        },
-      ]
-    }
+    this.state = store.getState();
+
+    store.subscribe(()=> {
+      this.setState(store.getState());
+    });
   }
 
   onAddStarted(){
@@ -27,8 +22,13 @@ export default class List extends Component {
 
   onAdd(task){
     console.log('add ', task);
-    this.state.todos.push({ task });
-    this.setState({todos: this.state.todos});
+    // this.state.todos.push({ task });
+    // this.setState({todos: this.state.todos});
+
+    store.dispatch({
+      type: 'ADD_TODO',
+      task,
+    });
     this.props.navigation.pop();
   }
 
