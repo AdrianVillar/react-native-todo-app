@@ -1,17 +1,49 @@
 import React from 'react';
-import {View, Text, TouchableHighlight} from 'react-native';
+import {
+  View, Text, TouchableHighlight, Image, StyleSheet, Animated
+} from 'react-native';
+
 
 export default function render(styles) {
+  const doneAnimation = new Animated.ValueXY();
+
+  const localStyle = StyleSheet.create({
+    doneButton:{
+      borderRadius: 5,
+      padding: 5,
+    },
+    row:{
+      transform: doneAnimation.getTranslateTransform(),
+    }
+  });
+
+  function animatedPress(){
+    Animated.spring(doneAnimation,{
+      tension: 2,
+      friction: 3,
+      toValue:{
+        x: 0,
+        y: -500,
+      }
+    }).start();
+
+    setTimeout(()=>{
+      this.onDonePressed();
+    },500);
+  }
+
   return (
-    <View style={styles.container}>
+    <Animated.View style={[styles.container, localStyle.row]}>
       <Text style={styles.label}>{this.props.todo.task}</Text>
 
       <TouchableHighlight
-        onPress={this.onDonePressed.bind(this)}
-        style={styles.doneButton}
-      >
-        <Text style={[styles.label, styles.doneButtonLabel]}>Done</Text>
+        underlayColor="#ddd"
+        onPress={animatedPress.bind(this)}
+        style={localStyle.doneButton} >
+
+        <Image
+          source={require('../../images/done.png')} />
       </TouchableHighlight>
-    </View>
+    </Animated.View>
   );
 }
