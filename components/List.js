@@ -46,8 +46,16 @@ export default class List extends Component {
     });
   }
 
+  onToggle(){
+    store.dispatch({
+      type: 'TOGGLE_STATE',
+    });
+  }
+
   render() {
     return <TaskList 
+      onToggle={this.onToggle.bind(this)}
+      filter={this.state.filter}
       onDone={this.onDone.bind(this)}
       onAddStarted={this.onAddStarted.bind(this)}
       todos={this.state.todos} />
