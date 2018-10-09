@@ -10,7 +10,7 @@ const defaultState = {
 
 function todoStore(state = defaultState, action) {
   switch (action.type) {
-    case "ADD_TODO":
+    case 'ADD_TODO':
       return Object.assign({}, state, {
         todos: state.todos.concat([
           {
@@ -18,6 +18,11 @@ function todoStore(state = defaultState, action) {
           }
         ])
       });
+      break;
+    case 'DONE_TODO':
+      return Object.assign({}, state, {
+          todos: state.todos.filter(todo => todo !== action.todo ),
+      }); 
       break;
     default:
       return state;

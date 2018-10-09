@@ -35,10 +35,15 @@ export default class List extends Component {
   onDone(todo){
     console.log('task was completed ', todo.task);
 
-    const filteredTodos = this.state.todos.filter(_todo => _todo !== todo );
+    // const filteredTodos = this.state.todos.filter(_todo => _todo !== todo );
 
-    debugger;
-    this.setState({todos: filteredTodos});
+    // debugger;
+    // this.setState({todos: filteredTodos});
+
+    store.dispatch({
+      type: 'DONE_TODO',
+      todo,
+    });
   }
 
   render() {
