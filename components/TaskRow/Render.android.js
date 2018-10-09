@@ -22,8 +22,8 @@ export default function render(styles) {
       tension: 2,
       friction: 3,
       toValue:{
-        x: 0,
-        y: -500,
+        x: -500,
+        y: 0,
       }
     }).start();
 
